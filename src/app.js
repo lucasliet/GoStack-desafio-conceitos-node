@@ -11,7 +11,7 @@ app.use(cors());
 const repositories = [];
 
 app.get("/repositories", (request, response) => {
-  response.json(repositories);
+  response.status(200).json(repositories);
 });
 
 app.get("/repositories/:id", (request, response) => {
@@ -20,8 +20,18 @@ app.get("/repositories/:id", (request, response) => {
   if(indexRepository < 0){
     return response.status(400).json({error: 'Repository not found'});
   }
-  return response.json(repositories[indexRepository]);
+  return response.status(200).json(repositories[indexRepository]);
 });
+
+// app.post("/repositories", (request, response) => {
+//   const { title, url, techs } = request.body;
+//   const likes = 0;
+
+//   const repositorio = { id: uuid(), title, url, techs, likes };
+
+//   repositories.push(repositorio);
+//   return response.status(200).json(repositorio);
+// });
 
 app.post("/repositories", (request, response) => {
   const { title, url, techs } = request.body;
@@ -33,7 +43,7 @@ app.post("/repositories", (request, response) => {
     likes: 0
   };
   repositories.push(repository);
-  return response.json(repositories);
+  return response.status(200).json(repository);
 });
 
 app.put("/repositories/:id", (request, response) => {
